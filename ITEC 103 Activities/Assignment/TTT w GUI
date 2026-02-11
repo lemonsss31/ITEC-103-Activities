@@ -40,7 +40,7 @@ def click(pos):
 
     win = winner()
     if win:
-        messagebox.showinfo("Game Over", f"Winner is {win} 🎉")
+        messagebox.showinfo("Game Over", f"Winner is {win}")
 
         if win == "X":
             webbrowser.open(winx_link)
@@ -51,7 +51,7 @@ def click(pos):
         return
 
     if len(board_marked) == 9:
-        messagebox.showinfo("Game Over", "It's a Draw 😄")
+        messagebox.showinfo("Game Over", "It's a Draw")
         root.destroy()
         return
 
@@ -82,3 +82,4 @@ for r in range(3):
         buttons[pos].grid(row=r, column=c)
 
 root.mainloop()
+
