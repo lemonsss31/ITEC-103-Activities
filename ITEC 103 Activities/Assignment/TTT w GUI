@@ -2,21 +2,24 @@ import tkinter as tk
 from tkinter import messagebox
 import webbrowser
 
-# ================== SETTINGS ==================
+# ================== Link Winner ==================
 winx_link = "https://youtu.be/kIte0CuJZ5E?si=e7oIUilu8lGTJ-Lr"
 wino_link = "https://youtu.be/VP6eZu3SAak?si=lGa4ZgYEKg2PnFRK"
-# ==============================================
+# =================================================
 
-# game state
+# =============== Game State ===============
 board = {
     "a1": " ", "a2": " ", "a3": " ",
     "b1": " ", "b2": " ", "b3": " ",
     "c1": " ", "c2": " ", "c3": " "
-}
+} 
 board_marked = []
 current = "X"
+# ==========================================
 
-# ================== LOGIC ==================
+
+
+# ================================= Logic =================================
 def winner():
     wins = [
         ("a1","a2","a3"), ("b1","b2","b3"), ("c1","c2","c3"),
@@ -56,8 +59,11 @@ def click(pos):
         return
 
     current = "O" if current == "X" else "X"
+# ==============================================================================
 
-# ================== GUI ==================
+
+
+# ======================= GUI =======================
 root = tk.Tk()
 root.title("Tic Tac Toe")
 
@@ -82,4 +88,5 @@ for r in range(3):
         buttons[pos].grid(row=r, column=c)
 
 root.mainloop()
+# =======================================================
 
