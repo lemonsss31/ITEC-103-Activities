@@ -1,0 +1,84 @@
+import tkinter as tk
+from tkinter import messagebox
+import webbrowser
+
+# ================== SETTINGS ==================
+winx_link = "https://youtu.be/kIte0CuJZ5E?si=e7oIUilu8lGTJ-Lr"
+wino_link = "https://youtu.be/VP6eZu3SAak?si=lGa4ZgYEKg2PnFRK"
+# ==============================================
+
+# game state
+board = {
+    "a1": " ", "a2": " ", "a3": " ",
+    "b1": " ", "b2": " ", "b3": " ",
+    "c1": " ", "c2": " ", "c3": " "
+}
+board_marked = []
+current = "X"
+
+# ================== LOGIC ==================
+def winner():
+    wins = [
+        ("a1","a2","a3"), ("b1","b2","b3"), ("c1","c2","c3"),
+        ("a1","b1","c1"), ("a2","b2","c2"), ("a3","b3","c3"),
+        ("a1","b2","c3"), ("c1","b2","a3")
+    ]
+    for w in wins:
+        if board[w[0]] == board[w[1]] == board[w[2]] != " ":
+            return board[w[0]]
+    return None
+
+def click(pos):
+    global current
+
+    if board[pos] != " ":
+        return
+
+    board[pos] = current
+    buttons[pos]["text"] = current
+    board_marked.append(pos)
+
+    win = winner()
+    if win:
+        messagebox.showinfo("Game Over", f"Winner is {win} 🎉")
+
+        if win == "X":
+            webbrowser.open(winx_link)
+        else:
+            webbrowser.open(wino_link)
+
+        root.destroy()
+        return
+
+    if len(board_marked) == 9:
+        messagebox.showinfo("Game Over", "It's a Draw 😄")
+        root.destroy()
+        return
+
+    current = "O" if current == "X" else "X"
+
+# ================== GUI ==================
+root = tk.Tk()
+root.title("Tic Tac Toe")
+
+buttons = {}
+positions = [
+    ["a1","a2","a3"],
+    ["b1","b2","b3"],
+    ["c1","c2","c3"]
+]
+
+for r in range(3):
+    for c in range(3):
+        pos = positions[r][c]
+        buttons[pos] = tk.Button(
+            root,
+            text=" ",
+            font=("Arial", 24, "bold"),
+            width=5,
+            height=2,
+            command=lambda p=pos: click(p)
+        )
+        buttons[pos].grid(row=r, column=c)
+
+root.mainloop()
